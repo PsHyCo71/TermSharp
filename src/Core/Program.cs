@@ -1,4 +1,6 @@
-﻿namespace TermSharp;
+﻿using TermSharp.Windowing;
+
+namespace TermSharp;
 public class Program
 {
     public static void Main()

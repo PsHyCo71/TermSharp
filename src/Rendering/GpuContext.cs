@@ -1,11 +1,11 @@
 using Silk.NET.WebGPU;
 
-namespace TermSharp;
+namespace TermSharp.Rendering;
 
 public class GpuContext
-{
-    private WebGPU _webGpu;
-    private unsafe Instance* _instance;
+{  
+    public readonly WebGPU _webGpu;
+    public readonly unsafe Instance* _instance;
     private unsafe Adapter* _adapter;
     private unsafe Device* _device;
     private unsafe Queue* _queue;
