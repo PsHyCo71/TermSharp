@@ -10,22 +10,25 @@ public class AppWindow
     private readonly IWindow _window;
     private INativeWindow? _native;
     private IInputContext? _input;
+    public Vector2D<int> size => _window.Size;
 
     public INativeWindowSource WindowSource => _window;
 
     public INativeWindow NativeHandle => _native ?? throw new InvalidOperationException("The window has not been initiliazed yet.");
 
+    public event Action? Loaded;
     public event Action? CloseRequest;
     public event Action<int, int>? Resized;
     public event Action<Key>? KeyDown;
     public event Action<Key>? KeyUp;
+    public event Action? RenderRequested;
 
     public AppWindow()
     {
         Window.PrioritizeGlfw();
         WindowOptions windowOptions = WindowOptions.Default with
         {
-            Size = new Vector2D<int>(720, 450),
+            Size = new Vector2D<int>(726, 784),
             Title = "TermSharp"
         };
         _window = Window.Create(windowOptions);
@@ -48,9 +51,13 @@ public class AppWindow
         _input = _window.CreateInput();
         _input.Keyboards[0].KeyDown += (keyboard, key, scancode) => KeyDown?.Invoke(key);
         _input.Keyboards[0].KeyUp += (keyboard, key, scancode) => KeyUp?.Invoke(key);
+        Loaded?.Invoke();
     }
     private void OnUpdate(double _) { }
-    private void OnRender(double _) { }
+    private void OnRender(double _)
+    {
+        RenderRequested?.Invoke();
+    }
     private void OnResize(Vector2D<int> size)
     {
         Resized?.Invoke(size.X, size.Y);

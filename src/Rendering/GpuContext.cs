@@ -4,19 +4,19 @@ namespace TermSharp.Rendering;
 
 public class GpuContext
 {  
-    public readonly WebGPU _webGpu;
-    public readonly unsafe Instance* _instance;
+    public readonly WebGPU WebGpu;
+    public readonly unsafe Instance* Instance;
     private unsafe Adapter* _adapter;
-    private unsafe Device* _device;
-    private unsafe Queue* _queue;
+    public unsafe Device* Device;
+    public unsafe Queue* Queue;
 
     public unsafe GpuContext(WebGPU webGpu, Instance* instance, Adapter* adapter, Device* device, Queue* queue)
     {
-        _webGpu = webGpu;
-        _instance = instance;
+        this.WebGpu = webGpu;
+        this.Instance = instance;
         _adapter = adapter;
-        _device = device;
-        _queue = queue;
+        this.Device = device;
+        this.Queue = queue;
     }
 
     private static unsafe Instance* CreateInstance(WebGPU webGpu)
