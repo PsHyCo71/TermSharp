@@ -16,7 +16,8 @@ public class Program
             renderSurface.ConfigureSurface(gpuContext, window.size);
         };
         window.Resized += (_, _) => renderSurface.ConfigureSurface(gpuContext, window.size);
-        
+        window.RenderRequested += () => renderSurface.RenderFrame(gpuContext);
+
         window.Run();
     }
 }
